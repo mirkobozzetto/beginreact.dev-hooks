@@ -11,13 +11,11 @@ const Todos = ({ todos }) => (
 const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const todo = e.target.todo.value;
-
     addTodo(todo);
-
     e.target.reset();
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" id="todo" />
