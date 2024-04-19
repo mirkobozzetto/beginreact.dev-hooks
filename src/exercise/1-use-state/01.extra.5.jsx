@@ -24,6 +24,29 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
+const useTodos = (defaultTodos = []) => {
+  const [todos, setTodos] = useState(defaultTodos);
+
+  const addTodo = (todo) => {
+    setTodos([...todos, todo]);
+  };
+
+  return { todos, addTodo };
+};
+
+const TodoList = () => {
+  const { todos, addTodo } = useTodos(['Learn React', 'Learn React Hooks']);
+  console.log(todos);
+
+  return (
+    <div>
+      <h2>TodoApp</h2>
+      <Todos todos={todos} />
+      <TodoForm addTodo={addTodo} />
+    </div>
+  );
+};
+
 const Counter = ({ count, increment }) => {
   return <button onClick={increment}>{count}</button>;
 };
@@ -46,7 +69,6 @@ const Greeting = ({ favoriteAnimal, username }) => {
   );
 };
 
-// 🦁 Il faudra ajouter les props "favoriteAnimal" et "setFavoriteAnimal" ici !
 const FavoriteAnimal = ({ favoriteAnimal, setFavoriteAnimal }) => {
   return (
     <input
@@ -71,7 +93,6 @@ const UserAnimalForm = () => {
           setFavoriteAnimal={setFavoriteAnimal}
         />
       </div>
-
       <div>
         <span>Username</span>
         <Username username={username} setUsername={setUsername} />
@@ -82,18 +103,11 @@ const UserAnimalForm = () => {
 };
 
 const App = () => {
-  const [todos, setTodos] = useState(['Learn React', 'Learn React Hooks']);
   const [count, setCount] = useState(0);
-
-  const addTodo = (todo) => {
-    setTodos([...todos, todo]);
-  };
 
   return (
     <div>
-      <h2>TodoApp</h2>
-      <Todos todos={todos} />
-      <TodoForm addTodo={addTodo} />
+      <TodoList />
       <h2>Counter</h2>
       <Counter count={count} increment={() => setCount((p) => p + 1)} />
       <UserAnimalForm />
