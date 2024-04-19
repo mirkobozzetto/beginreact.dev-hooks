@@ -1,24 +1,55 @@
 // 🦁 add useState import
-// import { useState } from "react";
+import { useState } from 'react';
 
 const App = () => {
-  // 🦁 Remplace le name par un state
-  let name = '';
+  const [name, setName] = useState('');
+  const [reverse, setReverse] = useState(false);
+  const [nameHistory, setNameHistory] = useState([]);
 
   const handleChange = (event) => {
-    // 🦁 Update le state avec la nouvelle valeur
-    // 💡 `event.target.value`
+    setName(event.target.value);
+    if (event.target.value) {
+      setNameHistory((prevNames) => [...prevNames, event.target.value]);
+    }
   };
+
+  const deleteHistory = (index) => {
+    setNameHistory((current) => {
+      current.splice(index, 1);
+      return [...current];
+    });
+  };
+
+  const handleCheckboxChange = (event) => {
+    setReverse(event.target.checked);
+  };
+
+  const displayName = reverse ? name.split('').reverse().join('') : name;
 
   return (
     <div>
       <input
+        type="checkbox"
+        checked={reverse}
+        onChange={handleCheckboxChange}
+      />
+      <input
         type="text"
         placeholder="Name"
-        // 🦁 Ajoute la valeur
-        // 🦁 Ajoute le onChange pour update le state quand la valeur change
+        value={name}
+        onChange={handleChange}
       />
-      <p>{name ? `Hello ${name}` : 'Write your name'}</p>
+      {/* <button onClick={deleteHistory}>Delete History</button> */}
+
+      <p>{name ? `Hello ${displayName}` : 'Write your name'}</p>
+      <ul>
+        {nameHistory.map((name, index) => (
+          <li key={index} onClick={() => deleteHistory({ index })}>
+            {name}
+          </li>
+        ))}
+      </ul>
+      <br />
     </div>
   );
 };
