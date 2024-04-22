@@ -47,8 +47,12 @@ const TodoList = () => {
   );
 };
 
-const Counter = ({ count, increment }) => {
-  return <button onClick={increment}>{count}</button>;
+const Counter = () => {
+  const [count, setCount] = useState(0);
+  // count={count} increment={() => setCount((p) => p + 1)}
+  return (
+    <button onClick={() => setCount((current) => current + 1)}>{count}</button>
+  );
 };
 
 const Username = ({ username, setUsername }) => {
@@ -103,13 +107,11 @@ const UserAnimalForm = () => {
 };
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   return (
     <div>
       <TodoList />
       <h2>Counter</h2>
-      <Counter count={count} increment={() => setCount((p) => p + 1)} />
+      <Counter />
       <UserAnimalForm />
     </div>
   );
