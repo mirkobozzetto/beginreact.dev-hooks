@@ -11,11 +11,13 @@ const Todos = ({ todos }) => (
 const TodoForm = ({ addTodo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const todo = e.target.todo.value;
+
     addTodo(todo);
+
     e.target.reset();
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" id="todo" />
@@ -36,30 +38,6 @@ const useTodos = (defaultTodos = []) => {
 
 const TodoList = () => {
   const { todos, addTodo } = useTodos(['Learn React', 'Learn React Hooks']);
-  console.log(todos);
-
-  return (
-    <div>
-      <h2>TodoApp</h2>
-      <Todos todos={todos} />
-      <TodoForm addTodo={addTodo} />
-    </div>
-  );
-};
-
-const useTodos = (defaultTodos = []) => {
-  const [todos, setTodos] = useState(defaultTodos);
-
-  const addTodo = (todo) => {
-    setTodos([...todos, todo]);
-  };
-
-  return { todos, addTodo };
-};
-
-const TodoList = () => {
-  const { todos, addTodo } = useTodos(['Learn React', 'Learn React Hooks']);
-  console.log(todos);
 
   return (
     <div>
@@ -72,10 +50,8 @@ const TodoList = () => {
 
 const Counter = () => {
   const [count, setCount] = useState(0);
-  // count={count} increment={() => setCount((p) => p + 1)}
-  return (
-    <button onClick={() => setCount((current) => current + 1)}>{count}</button>
-  );
+
+  return <button onClick={() => setCount((p) => p + 1)}>{count}</button>;
 };
 
 const Username = ({ username, setUsername }) => {
@@ -130,13 +106,6 @@ const UserAnimalForm = () => {
 };
 
 const App = () => {
-  const [todos, setTodos] = useState(['Learn React', 'Learn React Hooks']);
-  const [count, setCount] = useState(0);
-
-  const addTodo = (todo) => {
-    setTodos([...todos, todo]);
-  };
-
   return (
     <div>
       <TodoList />
